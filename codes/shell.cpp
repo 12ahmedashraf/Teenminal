@@ -6,10 +6,8 @@
 #include "ideas.h"
 #include "movies.h"
 #include "books.h"
-#include "achievements.h"
 #include "projects.h"
 #include "series.h"
-#include "snake.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -67,11 +65,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
         cout << " project list                               " << "List projects\n";
         cout << " project view \"title\"                     " << "Show a project details\n\n";
 
-        cout << " achievement add \"title\" \"description\"  " << "Record an achievement\n";
-        cout << " achievement list                           " << "List achievements\n";
-
-        cout << cyan << "                    -- FUN --" << reset << "\n";
-        cout << " play                     " << "Have fun and play a game!\n\n";
         cout << cyan << "                  -- System --" << reset << "\n";
         cout << " mk path/to/dir                     " << "Create directories\n";
         cout << " run <cmd>                          " << "Run external command (system)\n";
@@ -112,7 +105,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
         }
 
         string cmd = args[0];
-        cout << cmd << "\n";
         if (cmd == "help")
         {
             print_help();
@@ -129,7 +121,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 3)
                 {
                     journal_add(base, args[2], (args.size() >= 4 ? args[3] : string()));
-                    cout << "Journal entry added\n";
                 }
                 else
                 {
@@ -152,7 +143,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 4)
                 {
                     exam_add(base, args[2], args[3]);
-                    cout << "Exam added\n";
                 }
                 else
                 {
@@ -175,7 +165,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 3)
                 {
                     todo_add(base, args[2], (args.size() >= 4 ? args[3] : string()));
-                    cout << "Todo added\n";
                 }
                 else
                 {
@@ -189,7 +178,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
             else if (args.size() >= 3 && args[1] == "done")
             {
                 todo_done(base, stoi(args[2]), (args.size() >= 4 ? args[3] : string()));
-                cout << "Todo marked as done\n";
             }
             else
             {
@@ -203,7 +191,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 4)
                 {
                     hw_add(base, args[2], args[3]);
-                    cout << "Homework added\n";
                 }
                 else
                 {
@@ -266,10 +253,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 cout << "Usage: run <command>\n";
             }
         }
-        else if (cmd == "play")
-        {
-            play_snake();
-        }
         else if (cmd == "movie")
         {
             if (args.size() >= 2 && args[1] == "add")
@@ -303,7 +286,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 5)
                 {
                     series_add(base, args[2], stoi(args[3]), args[4]);
-                    cout << "Series added\n";
                 }
                 else
                 {
@@ -330,7 +312,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 5)
                 {
                     book_add(base, args[2], stoi(args[3]), args[4]);
-                    cout << "Book added\n";
                 }
                 else
                 {
@@ -357,7 +338,6 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 if (args.size() >= 4)
                 {
                     project_add(base, args[2], args[3]);
-                    cout << "Project added\n";
                 }
                 else
                 {
@@ -377,6 +357,7 @@ _________  _______   _______   ________   _____ ______   ___  ________   _______
                 cout << "project commands: add/list/view\n";
             }
         }
+
         else
         {
             int rc = system(join_from(args, 0).c_str());
