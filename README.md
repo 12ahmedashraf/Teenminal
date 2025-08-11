@@ -54,7 +54,7 @@ g++ obj/*.o -o bin/teenminal.exe
 Or compile from sources directly:
 
 ```bash
-g++ -std=c++17 -o bin/teenminal.exe src/*.cpp
+g++ -std=c++17 -o bin/teenminal.exe codes/*.cpp
 ```
 
 ### Running
