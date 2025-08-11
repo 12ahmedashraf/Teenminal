@@ -21,8 +21,6 @@ It’s built for students who want to stay organized, manage projects, record th
 - **Books**: Add, view, and list books you've read, with ratings and reviews.
 - **Series**: Manage your favorite TV series similarly with add, view, and list commands.
 
-### Projects & Achievements
-
 - **Projects**: Save project titles and descriptions, view detailed project info, and list all projects.
 
 ### System Utilities
