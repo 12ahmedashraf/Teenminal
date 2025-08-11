@@ -45,34 +45,35 @@ namespace teen
           return base;
      }
      vector<string> tokenize(const string &line)
-     {
-          vector<string> out;
-          string cur;
-          bool inq = false;
-          for (size_t i = 0; i < line.size(); ++i)
-          {
-               char c = line[i];
-               if (c == '"')
-               {
-                    inq = !inq;
-                    continue;
-               }
-               if (!inq && isspace((unsigned char)c))
-               {
-                    if (!cur.empty())
-                    {
-                         out.push_back(cur);
-                         cur.clear();
-                    }
-               }
-               else
-                    cur.push_back(c);
-          }
-          if (cur.empty())
-               out.push_back(cur);
+{
+    vector<string> out;
+    string cur;
+    bool inq = false;
+    for (size_t i = 0; i < line.size(); ++i)
+    {
+        char c = line[i];
+        if (c == '"')
+        {
+            inq = !inq;
+            continue;
+        }
+        if (!inq && isspace((unsigned char)c))
+        {
+            if (!cur.empty())
+            {
+                out.push_back(cur);
+                cur.clear();
+            }
+        }
+        else
+            cur.push_back(c);
+    }
+    if (!cur.empty())
+        out.push_back(cur);
 
-               return out;
-     }
+    return out;
+}
+
      string join_from(const vector<string> &v, size_t i)
      {
           string s;

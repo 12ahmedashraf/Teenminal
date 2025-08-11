@@ -17,14 +17,17 @@ using namespace std;
 namespace teen
 {
     using namespace std;
-    static const char *LOGO = R"(
-████████╗███████╗Y███████╗███╗   ██╗███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
-╚══██╔══╝██╔════╝██╔════╝████╗  ██║████╗ ████║██║████╗  ██║██╔══██╗██║     
-   ██║   █████╗  █████╗  ██╔██╗ ██║██╔████╔██║██║██╔██╗ ██║███████║██║     
-   ██║   ██╔══╝  ██╔══╝  ██║╚██╗██║██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     
-   ██║   ███████╗███████╗██║ ╚████║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████╗
-   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝
-)";
+    static const char *LOGO = R"( 
+_________  _______   _______   ________   _____ ______   ___  ________   ________  ___          
+|\___   ___\\  ___ \ |\  ___ \ |\   ___  \|\   _ \  _   \|\  \|\   ___  \|\   __  \|\  \         
+\|___ \  \_\ \   __/|\ \   __/|\ \  \\ \  \ \  \\\__\ \  \ \  \ \  \\ \  \ \  \|\  \ \  \        
+     \ \  \ \ \  \_|/_\ \  \_|/_\ \  \\ \  \ \  \\|__| \  \ \  \ \  \\ \  \ \   __  \ \  \       
+      \ \  \ \ \  \_|\ \ \  \_|\ \ \  \\ \  \ \  \    \ \  \ \  \ \  \\ \  \ \  \ \  \ \  \____  
+       \ \__\ \ \_______\ \_______\ \__\\ \__\ \__\    \ \__\ \__\ \__\\ \__\ \__\ \__\ \_______\
+        \|__|  \|_______|\|_______|\|__| \|__|\|__|     \|__|\|__|\|__| \|__|\|__|\|__|\|_______|
+                                                                                                 
+                                                                                                 
+                                                                                                 )";
     void print_lg()
     {
         cout << bold << cyan << LOGO << reset << "\n";
@@ -44,8 +47,9 @@ namespace teen
         cout << " hw add \"description\" YYYY-MM-DD  " << "Add homework\n";
         cout << " hw list                            " << "List homeworks\n";
         cout << " idea add \"text\"                  " << "Record your idea!\n";
-        cout << " idea list                          " << "List your ideas!";
-        cout << cyan << "                   -- Media & Learning --" << reset << "\n";
+        cout << " idea list                          " << "List your ideas!\n\n";
+        cout
+            << cyan << "                   -- Media & Learning --" << reset << "\n";
         cout << " movie add \"title\" <rating> \"review\"   " << "Add your movies to remember them! (rating 1-10)\n";
         cout << " movie list                                " << "List saved movies (by title)\n";
         cout << " movie view \"title\"                      " << "Remember movie details (by title)\n\n";
@@ -58,7 +62,7 @@ namespace teen
         cout << " series list                               " << "List saved series\n";
         cout << " series view \"title\"                     " << "Show series details\n\n";
 
-        cout << cyan << "                    -- Projects & Achievements --" << reset << "\n";
+        cout << cyan << "                -- Projects & Achievements --" << reset << "\n";
         cout << " project add \"title\" \"description\"      " << "Save a project with description\n";
         cout << " project list                               " << "List projects\n";
         cout << " project view \"title\"                     " << "Show a project details\n\n";
@@ -68,7 +72,7 @@ namespace teen
 
         cout << cyan << "                    -- FUN --" << reset << "\n";
         cout << " play                     " << "Have fun and play a game!\n\n";
-        cout << cyan << "-- System --" << reset << "\n";
+        cout << cyan << "                  -- System --" << reset << "\n";
         cout << " mk path/to/dir                     " << "Create directories\n";
         cout << " run <cmd>                          " << "Run external command (system)\n";
         cout << " history                            " << "Show command history\n";
@@ -108,7 +112,7 @@ namespace teen
         }
 
         string cmd = args[0];
-
+        cout << cmd << "\n";
         if (cmd == "help")
         {
             print_help();

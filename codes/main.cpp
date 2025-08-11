@@ -17,25 +17,18 @@ int main()
         cout << teen::green << teen::bold << "teenminal> " << teen::reset;
         cout.flush();
         if (!getline(cin, line))
-        {
-            if (cin.eof())
-            {
-                break;
-            }
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
+            break;
 
         if (line.empty())
             continue;
-
         teen::save_history(base, line);
+
         auto args = teen::tokenize(line);
         if (args.empty())
             continue;
         if (args[0] == "exit")
             break;
+
         teen::dispatch(args, base);
     }
     cout << "Bye!\n";
