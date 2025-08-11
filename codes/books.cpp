@@ -2,25 +2,10 @@
 #include "teenminal.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 namespace fs = filesystem;
 namespace teen
 {
-    static std::string sanitize_filename(const std::string &input)
-    {
-        std::string output;
-        for (char c : input)
-        {
-            if (isalnum(static_cast<unsigned char>(c)) || c == '-' || c == '_' || c == '.')
-            {
-                output += c;
-            }
-            else
-            {
-                output += '_';
-            }
-        }
-        return output;
-    }
     static fs::path book_dir(const fs::path &base)
     {
         fs::path dir = base / "books";
@@ -64,5 +49,5 @@ namespace teen
         while (getline(ifs, line))
             cout << line << "\n";
     }
-    
+
 }

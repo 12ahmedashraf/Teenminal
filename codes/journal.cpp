@@ -1,11 +1,10 @@
 #include "journal.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 
 namespace teen
 {
-    using namespace std;
-
     static fs::path journal_day_path(const fs::path &base, const string &date)
     {
         if (date.size() != 10)

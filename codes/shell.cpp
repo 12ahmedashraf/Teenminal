@@ -12,12 +12,13 @@
 #include "snake.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 
 namespace teen
 {
     using namespace std;
     static const char *LOGO = R"(
-████████╗███████╗███████╗███╗   ██╗███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
+████████╗███████╗Y███████╗███╗   ██╗███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
 ╚══██╔══╝██╔════╝██╔════╝████╗  ██║████╗ ████║██║████╗  ██║██╔══██╗██║     
    ██║   █████╗  █████╗  ██╔██╗ ██║██╔████╔██║██║██╔██╗ ██║███████║██║     
    ██║   ██╔══╝  ██╔══╝  ██║╚██╗██║██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     
@@ -30,8 +31,8 @@ namespace teen
     }
     void print_help()
     {
-        cout << bold << yellow << "Teenminal Help" << reset << "\n";
-        cout << cyan << "-- Productivity --" << reset << "\n";
+        cout << bold << yellow << "Teenminal Guide" << reset << "\n\n";
+        cout << cyan << "                  -- Productivity -- " << reset << "\n";
         cout << " journal add \"text\" [YYYY-MM-DD] " << "Add journal entry (deafult today)\n";
         cout << " journal read YYYY-MM-DD            " << "Read day journal\n";
         cout << " journal list YYYY-MM               " << "Your journals for the month\n";
@@ -42,9 +43,9 @@ namespace teen
         cout << " exam list                          " << "List exams and days left\n";
         cout << " hw add \"description\" YYYY-MM-DD  " << "Add homework\n";
         cout << " hw list                            " << "List homeworks\n";
-        cout << " idea add \"text\"                  " << "Record your idea!";
+        cout << " idea add \"text\"                  " << "Record your idea!\n";
         cout << " idea list                          " << "List your ideas!";
-        cout << cyan << "-- Media & Learning --" << reset << "\n";
+        cout << cyan << "                   -- Media & Learning --" << reset << "\n";
         cout << " movie add \"title\" <rating> \"review\"   " << "Add your movies to remember them! (rating 1-10)\n";
         cout << " movie list                                " << "List saved movies (by title)\n";
         cout << " movie view \"title\"                      " << "Remember movie details (by title)\n\n";
@@ -57,7 +58,7 @@ namespace teen
         cout << " series list                               " << "List saved series\n";
         cout << " series view \"title\"                     " << "Show series details\n\n";
 
-        cout << cyan << "-- Projects & Achievements --" << reset << "\n";
+        cout << cyan << "                    -- Projects & Achievements --" << reset << "\n";
         cout << " project add \"title\" \"description\"      " << "Save a project with description\n";
         cout << " project list                               " << "List projects\n";
         cout << " project view \"title\"                     " << "Show a project details\n\n";
@@ -65,8 +66,8 @@ namespace teen
         cout << " achievement add \"title\" \"description\"  " << "Record an achievement\n";
         cout << " achievement list                           " << "List achievements\n";
 
-        cout << cyan << "-- FUN --" << reset << "\n";
-        cout << " play                     " << "Have fun and play a game!";
+        cout << cyan << "                    -- FUN --" << reset << "\n";
+        cout << " play                     " << "Have fun and play a game!\n\n";
         cout << cyan << "-- System --" << reset << "\n";
         cout << " mk path/to/dir                     " << "Create directories\n";
         cout << " run <cmd>                          " << "Run external command (system)\n";
@@ -101,260 +102,284 @@ namespace teen
     void dispatch(const vector<string> &args, const fs::path &base)
     {
         if (args.empty())
+        {
+            cout << "Error: No command provided\n";
             return;
+        }
+
         string cmd = args[0];
+
         if (cmd == "help")
         {
             print_help();
-            return;
+            cout.flush();
         }
-        if (cmd == "history")
+        else if (cmd == "history")
         {
             show_history(base);
-            return;
         }
-        if (cmd == "journal")
+        else if (cmd == "journal")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 3)
+                {
                     journal_add(base, args[2], (args.size() >= 4 ? args[3] : string()));
+                    cout << "Journal entry added\n";
+                }
                 else
+                {
                     cout << "Usage: journal add \"text\" [YYYY-MM-DD]\n";
-                return;
+                }
             }
-            if (args.size() >= 3 && args[1] == "read")
+            else if (args.size() >= 3 && args[1] == "read")
             {
                 journal_read(base, args[2]);
-                return;
             }
-            cout << "journal commands: add/read/list\n";
-            return;
+            else
+            {
+                cout << "journal commands: add/read/list\n";
+            }
         }
-        if (cmd == "exam")
+        else if (cmd == "exam")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 4)
+                {
                     exam_add(base, args[2], args[3]);
+                    cout << "Exam added\n";
+                }
                 else
+                {
                     cout << "Usage: exam add \"name\" YYYY-MM-DD\n";
-                return;
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 exam_list(base);
-                return;
             }
-            cout << "exam commands: add/list\n";
-            return;
+            else
+            {
+                cout << "exam commands: add/list\n";
+            }
         }
-        if (cmd == "todo")
+        else if (cmd == "todo")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 3)
                 {
                     todo_add(base, args[2], (args.size() >= 4 ? args[3] : string()));
+                    cout << "Todo added\n";
                 }
                 else
+                {
                     cout << "Usage: todo add \"task\" [YYYY-MM-DD]\n";
-                return;
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 todo_list(base, (args.size() >= 3 ? args[2] : string()));
-                return;
             }
-            if (args.size() >= 3 && args[1] == "done")
+            else if (args.size() >= 3 && args[1] == "done")
             {
-                int idx = stoi(args[2]);
-                todo_done(base, idx, (args.size() >= 4 ? args[3] : string()));
-                return;
+                todo_done(base, stoi(args[2]), (args.size() >= 4 ? args[3] : string()));
+                cout << "Todo marked as done\n";
             }
-            cout << "todo commands: add/list/done\n";
-            return;
+            else
+            {
+                cout << "todo commands: add/list/done\n";
+            }
         }
-        if (cmd == "hw")
+        else if (cmd == "hw")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 4)
                 {
                     hw_add(base, args[2], args[3]);
+                    cout << "Homework added\n";
                 }
                 else
+                {
                     cout << "Usage: hw add \"description\" YYYY-MM-DD\n";
-                return;
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 hw_list(base);
-                return;
             }
-            cout << "hw commands: add/list\n";
-            return;
+            else
+            {
+                cout << "hw commands: add/list\n";
+            }
         }
-        if (cmd == "idea")
+        else if (cmd == "idea")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 3)
                 {
                     idea_add(base, args[2]);
+                    cout << "Idea recorded\n";
                 }
                 else
-                    cout << "Usage: idea recorded \"text\"\n";
-                return;
+                {
+                    cout << "Usage: idea add \"text\"\n";
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 idea_list(base);
-                return;
             }
-            cout << "idea commands: add/list\n";
-            return;
+            else
+            {
+                cout << "idea commands: add/list\n";
+            }
         }
-        if (cmd == "mkdir")
+        else if (cmd == "mkdir")
         {
             if (args.size() >= 2)
             {
-                fs::create_directories(fs::path(args[1]));
-                cout << green << "Directory is created successfully!";
+                fs::create_directories(args[1]);
+                cout << "Directory created\n";
             }
             else
-                cout << red << "No path provide\n";
-            return;
-        }
-        if (cmd == "run")
-        {
-            string c = join_from(args, 1);
-            if (c.empty())
             {
-                cout << "command is missing: run <command>\n";
-                return;
+                cout << "Error: No path provided\n";
             }
-            int rc = system(c.c_str());
-            cout << "(exit: " << rc << ")\n";
-            return;
         }
-        if (cmd == "play")
+        else if (cmd == "run")
+        {
+            if (args.size() >= 2)
+            {
+                int rc = system(join_from(args, 1).c_str());
+                cout << "Command exited with code: " << rc << "\n";
+            }
+            else
+            {
+                cout << "Usage: run <command>\n";
+            }
+        }
+        else if (cmd == "play")
         {
             play_snake();
-            return;
         }
-
-        if (cmd == "movie")
+        else if (cmd == "movie")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 5)
+                {
                     movie_add(base, args[2], stoi(args[3]), args[4]);
+                }
                 else
-                    cout << "Usage: movie add \"name\" rating \"review\" \n";
-                return;
+                {
+                    cout << "Usage: movie add \"name\" rating \"review\"\n";
+                }
             }
-            if (args.size() >= 2 && args[1] == "view")
+            else if (args.size() >= 3 && args[1] == "view")
             {
-                if (args.size() >= 3)
-                    movie_view(base, args[2]);
-                else
-                    cout << "Usage: movie view \"name\"\n";
-                return;
+                movie_view(base, args[2]);
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 movie_list(base);
-                return;
             }
-            cout << "movie commands: add/list/view\n";
-            return;
+            else
+            {
+                cout << "movie commands: add/view/list\n";
+            }
         }
-        if (cmd == "series")
+        else if (cmd == "series")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 5)
+                {
                     series_add(base, args[2], stoi(args[3]), args[4]);
+                    cout << "Series added\n";
+                }
                 else
-                    cout << "Usage: series add \"name\" <rating> \"review\" \n";
-                return;
+                {
+                    cout << "Usage: series add \"name\" rating \"review\"\n";
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 3 && args[1] == "view")
+            {
+                series_view(base, args[2]);
+            }
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 series_list(base);
-                return;
             }
-            if (args.size() >= 2 && args[1] == "view")
+            else
             {
-                if (args.size() >= 3)
-                    series_view(base, args[2]);
-                else
-                    cout << "Usage: series view \"name\" \n";
-                return;
+                cout << "series commands: add/view/list\n";
             }
-            cout << "series commands: add/list/view\n";
-            return;
         }
-        if (cmd == "book")
+        else if (cmd == "book")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
                 if (args.size() >= 5)
                 {
                     book_add(base, args[2], stoi(args[3]), args[4]);
+                    cout << "Book added\n";
                 }
                 else
-                    cout << "Usage: book add \"name\" rating \"review\" \n";
-                return;
-            }
-            if (args.size() >= 2 && args[1] == "view")
-            {
-                if (args.size() >= 3)
                 {
-                    book_view(base, args[2]);
+                    cout << "Usage: book add \"name\" rating \"review\"\n";
                 }
-                else
-                    cout << "Usage: book view \"name\"\n";
-                return;
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 3 && args[1] == "view")
+            {
+                book_view(base, args[2]);
+            }
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 book_list(base);
-                return;
             }
-            cout << "book commands: add/list/view\n";
+            else
+            {
+                cout << "book commands: add/view/list\n";
+            }
         }
-        if (cmd == "project")
+        else if (cmd == "project")
         {
             if (args.size() >= 2 && args[1] == "add")
             {
-                if (args.size() >= 5)
+                if (args.size() >= 4)
                 {
                     project_add(base, args[2], args[3]);
+                    cout << "Project added\n";
                 }
                 else
-                    cout << "Usage: project add \"name\" \"description\" \n";
-                return;
+                {
+                    cout << "Usage: project add \"name\" \"description\"\n";
+                }
             }
-            if (args.size() >= 2 && args[1] == "list")
+            else if (args.size() >= 2 && args[1] == "list")
             {
                 project_list(base);
-                return;
             }
-            if (args.size() >= 2 && args[1] == "view")
+            else if (args.size() >= 3 && args[1] == "view")
             {
-                if (args.size() >= 3)
-                {
-                    project_view(base, args[2]);
-                }
-                else
-                    cout << "Usage: project view \"name\" \n";
+                project_view(base, args[2]);
+            }
+            else
+            {
+                cout << "project commands: add/list/view\n";
             }
         }
-        string attempt = join_from(args, 0);
-        int rc = system(attempt.c_str());
-        if (rc == -1)
-            cerr << "Failed to execute.\n";
+        else
+        {
+            int rc = system(join_from(args, 0).c_str());
+            if (rc == -1)
+            {
+                cout << "Failed to execute command\n";
+            }
+        }
     }
 }

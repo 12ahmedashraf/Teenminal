@@ -2,9 +2,17 @@
 #include <fstream>
 #include <iostream>
 
+using namespace std;
 namespace teen
 {
-    using namespace std;
+      string today_date()
+    {
+        std::time_t t = std::time(nullptr);
+        std::tm tm = *std::localtime(&t);
+        std::ostringstream oss;
+        oss << std::put_time(&tm, "%Y-%m-%d");
+        return oss.str();
+    }
     static fs::path todo_day_path(const fs::path &base, const string &date)
     {
         string y = date.substr(0, 4), m = date.substr(5, 2), d = date.substr(8, 2);
@@ -48,7 +56,7 @@ namespace teen
         fs::path f = todo_day_path(base, d);
         if (!fs::exists(f))
         {
-            
+
             cout << "No todos\n";
             return;
         }

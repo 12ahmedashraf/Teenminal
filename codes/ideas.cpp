@@ -1,10 +1,11 @@
 #include "ideas.h"
 #include <fstream>
 #include <iostream>
+#include "teenminal.h"
+using namespace std;
 
 namespace teen
 {
-    using namespace std;
 
     void idea_add(const fs::path &base, const string &idea)
     {

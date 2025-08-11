@@ -1,15 +1,16 @@
-#ifndef series_h
-#define series_h
+#ifndef SERIES_H
+#define SERIES_H
 
-#include <string>
 #include <filesystem>
-#include "teenminal.h";
+#include <string>
+#include <vector>
+#include "teenminal.h"
+
 namespace teen
 {
-    void series_add(const filesystem::path &base, const string &title, int rating, const string &review);
-    void series_list(const filesystem::path &base);
-    void series_view(const filesystem::path &base, const string &title);
-    
+    void series_add(const std::filesystem::path &base, const std::string &title, int rating, const std::string &review);
+    void series_list(const std::filesystem::path &base);
+    void series_view(const std::filesystem::path &base, const std::string &title);
 }
 
 #endif

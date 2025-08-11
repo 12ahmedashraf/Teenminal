@@ -2,6 +2,7 @@
 #include "teenminal.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 namespace fs = filesystem;
 namespace teen
 {

@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+using namespace std;
 
 #ifdef _WIN32
 #include <conio.h>

@@ -6,10 +6,10 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+using namespace std;
 
 namespace teen
 {
-     using namespace std;
 
      const string reset = "\033[0m", red = "\033[31m", green = "\033[32m", yellow = "\033[33m", blue = "\033[34m", mag = "\033[35m", cyan = "\033[36m", bold = "\033[1m";
 
@@ -70,7 +70,8 @@ namespace teen
           }
           if (cur.empty())
                out.push_back(cur);
-          return out;
+
+               return out;
      }
      string join_from(const vector<string> &v, size_t i)
      {
@@ -86,14 +87,14 @@ namespace teen
      void enable_ansi()
      {
 #ifdef _WIN32
-          HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-          if (hOut == INVALID_HANDLE_VALUE)
-               return;
-          DWORD dwMode = 0;
-          if (!GetConsoleMode(hOut, &dwMode))
-               return;
-          dwMode |= 0x0004;
-          SetConsoleMode(hOut, dwMode);
+         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut == INVALID_HANDLE_VALUE) return;
+
+    DWORD dwMode = 0;
+    if (!GetConsoleMode(hOut, &dwMode)) return;
+
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
 #endif
      }
 

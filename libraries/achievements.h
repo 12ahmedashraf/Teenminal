@@ -1,14 +1,15 @@
-#ifndef achievement_h
-#define achievemnets_h
+#ifndef ACHIEVEMENT_H
+#define ACHIEVEMENT_H
 
-#include "teenminal.h"
 #include <filesystem>
 #include <string>
 #include <vector>
+#include "teenminal.h"
+
 namespace teen
 {
-    void achievements_add(const filesystem::path &base, const string &title, const string &description);
-    void achievements_list(const filesystem::path &base);
-    void achievements_view(const filesystem::path &base, const string &title);
+    void achievements_add(const std::filesystem::path &base, const std::string &title, const std::string &description);
+    void achievements_list(const std::filesystem::path &base);
+    void achievements_view(const std::filesystem::path &base, const std::string &title);
 }
 #endif
